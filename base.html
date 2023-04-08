@@ -1,0 +1,273 @@
+<html>
+
+<head>
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+    * {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      /* Green */
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 2px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button1 {
+      background-color: white;
+      color: white;
+      border: 2px solid #4CAF50;
+    }
+
+    .button1:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .button2 {
+      background-color: white;
+      color: black;
+      border: 2px solid #008CBA;
+    }
+
+    .button2:hover {
+      background-color: #008CBA;
+      color: black;
+    }
+
+    #customers {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #customers td,
+    #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+      background-color: #ddd;
+    }
+
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(90deg, #014D4E, #008080);
+      color: white;
+    }
+  </style>
+  <title>ANIMAL DETECTION</title>
+
+
+</head>
+
+<audio src="{{url_for('static', filename='wav.wav')}}" autoplay>
+</audio>
+
+<body style="background-repeat: no-repeat;background-attachment: fixed;background-size: 100% 100%;">
+  <center>
+    <h1 style="font-family:verdana">ANIMAL DETECTION<H1>
+  </center>
+
+  <head>
+    <title>File Upload</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+
+      .upload-form {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 36px;
+        margin-bottom: 30px;
+        color: #333;
+      }
+
+      input[type=file] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #e8e8e8;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      input[type=submit] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      input[type=submit]:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <head>
+      <title>Display File</title>
+      <script>
+        function displayFile(input) {
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var fileDisplay = document.getElementById("file-display");
+              fileDisplay.innerHTML = "<img src='" + e.target.result + "' width='200'>";
+            }
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+    </head>
+    <div class="upload-form">
+      <h1>Upload Your File</h1>
+      <form action="/success" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" onchange="displayFile(this)">
+        <br><br>
+        <input type="submit" value="Upload">
+      </form>
+    </div>
+    <div id="file-display"></div>
+  </body>
+
+
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Animal Identification</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: green;
+      }
+
+      #customers {
+        margin: auto;
+        width: 70%;
+        background-color: white;
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+      }
+
+      #customers thead tr {
+        background-color: #014D4E;
+        color: white;
+        font-weight: bold;
+      }
+
+      #customers th,
+      #customers td {
+        padding: 12px;
+        text-align: center;
+      }
+
+      #customers td {
+        font-size: 28px;
+      }
+
+      .animal-image {
+        background-color: #014D4E;
+        font-size: 24px;
+        font-family: Montserrat;
+        color: white;
+        padding: 12px;
+      }
+
+      .animal-desc {
+        font-size: 25px;
+        font-family: Montserrat;
+        color: #014D4E;
+        padding: 12px;
+      }
+
+      table {
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table id="customers">
+      <thead>
+        <tr>
+          <th class="animal-image">The Animal In This Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <th class="animal-image">Presence of {{creature_name}}:</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{creature_score}}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="animal-desc">{{creature_desc}}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+
+  </html>
